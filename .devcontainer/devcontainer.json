@@ -1,0 +1,61 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/java
+{
+  "name": "Java",
+  "dockerFile": "Dockerfile",
+
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "none",
+      "installMaven": true,
+      "installGradle": false
+    }
+  },
+
+  "containerEnv": {
+    "AWS_CONFIG_FILE": "/root/.aws/config",
+    "AWS_SHARED_CREDENTIALS_FILE": "/root/.aws/credentials",
+    "AWS_VAULT_BACKEND": "file"
+  },
+
+  "mounts": [
+    "source=${localEnv:HOME}/.aws,target=/root/.aws,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.awsvault,target=/root/.awsvault,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.awsvaultk,target=/root/.awsvaultk,type=bind,consistency=cached,readonly=true"
+  ],
+
+  "customizations": {
+    "settings": {
+      "files.eol": "\n",
+      "editor.formatOnSave": true,
+      "remote.extensionKind": {
+        "ms-azuretools.vscode-docker": "workspace"
+      }
+    },
+    "vscode": {
+      "extensions": [
+        "davidanson.vscode-markdownlint",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens",
+        "Gruntfuggly.todo-tree",
+        "ms-azuretools.vscode-docker",
+        "streetsidesoftware.code-spell-checker",
+        "vscode-icons-team.vscode-icons",
+        "hashicorp.terraform",
+        "Oracle.oracle-java",
+        "redhat.fabric8-analytics"
+      ],
+      "settings": {
+        "workbench.iconTheme": "vscode-icons",
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  "postCreateCommand": ".devcontainer/scripts/postCreate.sh",
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  "remoteUser": "root"
+}
